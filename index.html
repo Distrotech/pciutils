@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Pciutils by Distrotech</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Pciutils</h1>
+          <h2>Mirror of git://git.kernel.org/pub/scm/utils/pciutils/pciutils.git </h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/Distrotech/pciutils/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/Distrotech/pciutils/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/Distrotech/pciutils" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <p>This package contains the PCI Utilities, version <a href="https://github.com/VERSION" class="user-mention">@VERSION</a>@.</p>
+
+<p>Copyright (c) 1997--2012 Martin Mares <a href="mailto:mj@ucw.cz">mj@ucw.cz</a></p>
+
+<p>All files in this package can be freely distributed and used according
+to the terms of the GNU General Public License, either version 2 or
+(at your opinion) any newer version. See <a href="http://www.gnu.org/">http://www.gnu.org/</a> for details.</p>
+
+<ol>
+<li>What's that?
+~~~~~~~~~~~~~~~
+The PCI Utilities package contains a library for portable access to PCI bus
+configuration registers and several utilities based on this library.</li>
+</ol><p>In runs on the following systems:</p>
+
+<pre><code>Linux       (via /sys/bus/pci, /proc/bus/pci or i386 ports)
+FreeBSD     (via /dev/pci)
+NetBSD      (via libpci)
+OpenBSD     (via /dev/pci)
+GNU/kFreeBSD    (via /dev/pci)
+Solaris/i386    (direct port access)
+Aix     (via /dev/pci and odmget)
+GNU Hurd    (direct port access)
+Windows     (direct port access)
+CYGWIN      (direct port access)
+BeOS        (via syscalls)
+Haiku       (via /dev/misc/poke)
+</code></pre>
+
+<p>It should be very easy to add support for other systems as well (volunteers
+wanted; if you want to try that, I'll be very glad to see the patches and
+include them in the next version).</p>
+
+<p>The utilities include:  (See manual pages for more details)</p>
+
+<ul>
+<li><p>lspci: displays detailed information about all PCI buses and devices.</p></li>
+<li><p>setpci: allows to read from and write to PCI device configuration
+registers. For example, you can adjust the latency timers with it.
+CAUTION: There is a couple of dangerous points and caveats, please read
+the manual page first!</p></li>
+<li><p>update-pciids: download the current version of the pci.ids file.</p></li>
+</ul><ol>
+<li>Compiling and (un)installing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Just run "make" to compile the package and then "make install" to install it.
+Please note that GNU make is needed on most platforms.</li>
+</ol><p>If you want to change the default installation location, please override
+the PREFIX variable specified in the Makefile -- e.g., you can use
+"make PREFIX=/opt/pciutils install" to create a separate installation
+not interfering with the rest of your system.  Setting the DESTDIR variable
+will allow you to install to a different directory from the one you intend
+to eventually run it from.  This is useful for people who are packaging
+pciutils to install on other computers.</p>
+
+<p>There are several options which can be set in the Makefile or overridden
+when running make:</p>
+
+<p>ZLIB=yes/no   Enable support for compressed pci.ids (requires zlib).
+        If it is enabled, pciutils will use pci.ids.gz in preference to
+        pci.ids, even if the pci.ids file is newer.  If the pci.ids.gz
+        file is missing, it will use pci.ids instead.  If you do not
+        specify this option, the configure script will try to guess
+        automatically based on the presence of zlib.</p>
+
+<p>DNS=yes/no    Enable support for querying the central database of PCI IDs
+        using DNS.  Requires libresolv (which is available on most
+        systems as a part of the standard libraries) and tries to
+        autodetect its presence if the option is not specified.</p>
+
+<p>SHARED=yes/   Build libpci as a shared library.  Requires GCC 4.0 or newer.
+  no/local  The ABI of the shared library is intended to remain backward
+        compatible for a long time (we use symbol versioning to achieve
+        that, like GNU libc does).  The value `local' includes the
+        right directory name in the binaries, so the utilities can be
+        run without installation.  This is not recommended for any
+        production builds.</p>
+
+<p>"make install-lib" installs the library together with its header files
+for use by other programs.</p>
+
+<p>When you are bored of dumping PCI registers, just use "make uninstall".</p>
+
+<ol>
+<li>Getting new IDs
+~~~~~~~~~~~~~~~~~~~
+The database of PCI IDs (the pci.ids file) gets out of date much faster
+than I release new versions of this package, so it is maintained separately.</li>
+</ol><p>It lives at <a href="http://pci-ids.ucw.cz/">http://pci-ids.ucw.cz/</a>, where you can browse the database,
+download the most recent pci.ids file (e.g., by running the update-ids utility)
+and also submit new entries.</p>
+
+<p>Alternatively, you can use `lspci -q' to query the central database
+for new entries via network.</p>
+
+<p>The pci.ids file is also mirrored at <a href="http://pciids.sourceforge.net/">http://pciids.sourceforge.net/</a></p>
+
+<ol>
+<li>
+<p>Getting new versions</p>
+
+<pre><code>The current version of pciutils is available at:
+
+http://mj.ucw.cz/sw/pciutils/
+</code></pre>
+</li>
+</ol><p>The tarball can be downloaded at the following places:</p>
+
+<pre><code>ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/
+ftp://ftp.kernel.org/pub/software/utils/pciutils/ (expect a couple of hours delay)
+ftp://metalab.unc.edu/pub/Linux/hardware/ (expect a couple of days delay)
+</code></pre>
+
+<p>There is also a public GIT tree at:</p>
+
+<pre><code>git://git.kernel.org/pub/scm/utils/pciutils/pciutils.git
+</code></pre>
+
+<ol>
+<li>Using the library
+~~~~~~~~~~~~~~~~~~~~
+So far, there is only a little documentation for the library except for the
+general introduction in the pcilib(7) man page. If you want to use the
+library in your programs, please follow the comments in lib/pci.h and in
+the example program example.c.</li>
+</ol><ol>
+<li>Feedback
+~~~~~~~~~~~
+If you have any bug reports or suggestions, send them to the author.</li>
+</ol><p>If you have any new IDs, I'll be very glad to add them to the database.
+Just submit them at <a href="http://pci-ids.ucw.cz/">http://pci-ids.ucw.cz/</a>.</p>
+
+<p>Announcements of new versions are sent to <a href="mailto:linux-pci@vger.kernel.org">linux-pci@vger.kernel.org</a>
+(see <a href="http://vger.kernel.org/">http://vger.kernel.org/</a> for instructions).</p>
+
+<pre><code>                Have fun
+                        Martin
+</code></pre>
+        </section>
+
+        <footer>
+          Pciutils is maintained by <a href="https://github.com/Distrotech">Distrotech</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
