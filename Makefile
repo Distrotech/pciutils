@@ -37,7 +37,7 @@ PKGCFDIR=$(LIBDIR)/pkgconfig
 # Commands
 INSTALL=install
 DIRINSTALL=install -d
-STRIP=-s
+STRIP=
 CC=$(CROSS_COMPILE)gcc
 AR=$(CROSS_COMPILE)ar
 RANLIB=$(CROSS_COMPILE)ranlib
